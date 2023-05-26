@@ -16,7 +16,7 @@ const App = () => {
             <Link href='/pages/todo'>ToDoList</Link>
           </li>
           <li>
-            <Link href='/posts'>Member_status</Link>
+            <Link href='/posts/status'>Member_status</Link>
           </li>
         </ul>
       </div>
