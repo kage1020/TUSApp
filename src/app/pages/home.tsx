@@ -8,7 +8,7 @@ const Layout: React.FC = () => {
       <div className='content'>
         <ul className='link'>
           <li>
-            <Link href='/'>ToDoList</Link>
+            <Link href='/pages/todo'>ToDoList</Link>
           </li>
           <li>
             <Link href='/posts'>Member_status</Link>
