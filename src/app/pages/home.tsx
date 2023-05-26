@@ -1,5 +1,4 @@
 import React from 'react'
-// import { NavLink, Outlet } from 'react-router-dom'
 import Link from 'next/link'
  
 const Layout: React.FC = () => {
@@ -16,4 +15,4 @@ const Layout: React.FC = () => {
     )
 }
  
-export default Layout
+export default Layout;
