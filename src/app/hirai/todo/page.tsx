@@ -6,7 +6,7 @@ import Todo from './todo'
 
 const TodoPage = async () => {
   return (
-    <div className='w-[640px]'>
+    <div className='w-full min-w-[360px] max-w-[720px]'>
       <Suspense fallback={<Skelton />}>
         <Todo />
       </Suspense>

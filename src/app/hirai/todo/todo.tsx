@@ -23,7 +23,7 @@ import TextField from '@mui/material/TextField'
 import Tooltip from '@mui/material/Tooltip'
 import Typography from '@mui/material/Typography'
 import axios from 'axios'
-import useSWR, { useSWRConfig } from 'swr'
+import useSWR from 'swr'
 
 import Skelton from '@/app/components/Skelton'
 
@@ -37,8 +37,7 @@ const Todo = () => {
   const [input, setInput] = useState('')
   const [inputError, setInputError] = useState('')
   const [serverError, setServerError] = useState('')
-  const { mutate } = useSWRConfig()
-  const { data: tasks } = useSWR<TodoItem[]>(
+  const { data: tasks, mutate } = useSWR<TodoItem[]>(
     '/api/task',
     (url) => axios.get(url).then((res) => res.data),
     { onError: (err) => setServerError(err.message) },
@@ -56,7 +55,7 @@ const Todo = () => {
       if (res.status === 200 && tasks) {
         setInput('')
         const data = [...tasks, { id: res.data.id, text: input.trim(), completed: false }]
-        mutate('/api/task', data, { optimisticData: data })
+        mutate(data, { optimisticData: data })
       } else setServerError('エラーが発生しました')
     }
   }
@@ -67,7 +66,7 @@ const Todo = () => {
       const data = tasks?.map((task) =>
         task.id === id ? { ...task, completed: !task.completed } : task,
       )
-      mutate('/api/task', data, { optimisticData: data })
+      mutate(data, { optimisticData: data })
     } else setServerError('エラーが発生しました')
   }
 
@@ -75,7 +74,7 @@ const Todo = () => {
     const res = await axios.delete(`/api/task/${id}`)
     if (res.status === 200) {
       const data = tasks?.filter((task) => task.id !== id)
-      mutate('/api/task', data, { optimisticData: data })
+      mutate(data, { optimisticData: data })
     } else setServerError('エラーが発生しました')
   }
 
