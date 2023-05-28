@@ -23,7 +23,7 @@ import TextField from '@mui/material/TextField'
 import Tooltip from '@mui/material/Tooltip'
 import Typography from '@mui/material/Typography'
 import axios from 'axios'
-import useSWR from 'swr'
+import useSWR, { useSWRConfig } from 'swr'
 
 import Skelton from '@/app/components/Skelton'
 
@@ -37,7 +37,8 @@ const Todo = () => {
   const [input, setInput] = useState('')
   const [inputError, setInputError] = useState('')
   const [serverError, setServerError] = useState('')
-  const { data: tasks, mutate } = useSWR<TodoItem[]>(
+  const { mutate } = useSWRConfig()
+  const { data: tasks } = useSWR<TodoItem[]>(
     '/api/task',
     (url) => axios.get(url).then((res) => res.data),
     { onError: (err) => setServerError(err.message) },
@@ -52,26 +53,30 @@ const Todo = () => {
     if (input.trim() === '') setInputError('タスク名を入力してください')
     else {
       const res = await axios.post('/api/task', { text: input.trim() })
-      if (res.status === 200) {
+      if (res.status === 200 && tasks) {
         setInput('')
-        mutate()
+        const data = [...tasks, { id: res.data.id, text: input.trim(), completed: false }]
+        mutate('/api/task', data, { optimisticData: data })
       } else setServerError('エラーが発生しました')
     }
   }
 
   const toggleTask = async (id: string) => {
     const res = await axios.put(`/api/task/${id}`)
-    if (res.status === 200)
-      mutate(
-        tasks?.map((task) => (task.id === id ? { ...task, completed: !task.completed } : task)),
+    if (res.status === 200) {
+      const data = tasks?.map((task) =>
+        task.id === id ? { ...task, completed: !task.completed } : task,
       )
-    else setServerError('エラーが発生しました')
+      mutate('/api/task', data, { optimisticData: data })
+    } else setServerError('エラーが発生しました')
   }
 
   const deleteTask = async (id: string) => {
     const res = await axios.delete(`/api/task/${id}`)
-    if (res.status === 200) mutate()
-    else setServerError('エラーが発生しました')
+    if (res.status === 200) {
+      const data = tasks?.filter((task) => task.id !== id)
+      mutate('/api/task', data, { optimisticData: data })
+    } else setServerError('エラーが発生しました')
   }
 
   return (
