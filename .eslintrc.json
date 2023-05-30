@@ -28,7 +28,7 @@
         ],
         "pathGroups": [
           {
-            "pattern": "{react,next,next/*}",
+            "pattern": "{react,next,next/**/*}",
             "group": "builtin",
             "position": "before"
           }
