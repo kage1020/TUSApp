@@ -1,15 +1,12 @@
 'use client'
 
 import Link from 'next/link'
-
-// import Page_status from './Page_status'
-// import Page_todo from '.pages/page'
-// import Home from './home'
+import './main_page.css'
 
 const App = () => {
   return (
     <div>
-      <h1 className='head'>谷口研究室</h1>
+      <h1 className='title'>谷口研究室</h1>
       <div className='content'>
         <ul className='link'>
           <li>
