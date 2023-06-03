@@ -8,7 +8,6 @@ import Time from '@mui/icons-material/Schedule'
 import Option from '@mui/joy/Option'
 import Select from '@mui/joy/Select'
 import Typography from '@mui/joy/Typography'
-import { Icon } from '@mui/material'
 import Alert from '@mui/material/Alert'
 import { DataGrid } from '@mui/x-data-grid'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
@@ -22,7 +21,7 @@ import useSWR from 'swr'
 import Button from '@/components/button'
 
 import type Person from '@mui/icons-material/Person'
-import type { GridColDef, GridValueGetterParams } from '@mui/x-data-grid'
+import type { GridColDef } from '@mui/x-data-grid'
 import type { Dayjs } from 'dayjs'
 
 const columns: GridColDef[] = [
@@ -69,8 +68,6 @@ const ta_people: Person[] = [
   { id: '4620095', Name: '三橋 薫乃', Date: '', EnterTime: '', ExitTime: '' },
   { id: '4620098', Name: '目黒 圭峻', Date: '', EnterTime: '', ExitTime: '' },
 ]
-
-const non: Person[] = [{ id: '', Name: '', Date: '', EnterTime: '', ExitTime: '' }]
 
 const MemberState = () => {
   const [id, setId] = useState('')
