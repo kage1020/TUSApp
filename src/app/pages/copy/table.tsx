@@ -152,6 +152,12 @@ const App: React.FC = () => {
     setPeople(updatedPeople)
   }
 
+  const styles = () => ({
+    dropdownStyle: {
+      maxHeight: 300,
+    },
+  })
+
   return (
     <div>
       <div className='content'>
@@ -212,10 +218,14 @@ const App: React.FC = () => {
           <Button onClick={table_reset}>表を初期化</Button>
         </div>
 
+        <div className=''>
+          <Button onClick={table_reset}>DBへ送信</Button>
+        </div>
         <div style={{ height: 600, width: '100%' }}>
           <DataGrid
             rows={people}
             columns={columns}
+            z-index='0'
             slots={{
               baseSelect: Select,
             }}

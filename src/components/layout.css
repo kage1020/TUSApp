@@ -1,0 +1,24 @@
+.title {
+  padding: 1rem 3rem;
+  -webkit-transform: skew(-15deg);
+  transform: skew(-15deg);
+  color: #fff;
+  background-image: -webkit-linear-gradient(left, #209cff 0%, #68e0cf 100%);
+  background-image: linear-gradient(to right, #209cff 0%, #68e0cf 100%);
+  font-size: 2.2rem;
+  color: #fff;
+  position: relative;
+  padding: 1rem 5rem;
+  text-shadow: -2px 1.5px 0 #000;
+  margin-bottom: 15px;
+}
+.content {
+  display: flex;
+  flex-direction: row;
+}
+.sidemenu {
+  width: 15%;
+}
+.maincontent {
+  width: 85%;
+}

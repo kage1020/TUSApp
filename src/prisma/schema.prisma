@@ -8,22 +8,17 @@ datasource db {
 }
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
-model attend_management {
-  id        BigInt    @id @default(autoincrement())
+model attend {
+  id        BigInt  @id @default(autoincrement())
   Name      String?
-  Date      DateTime? @db.Date
-  EnterTime DateTime? @db.Time(6)
-  ExitTime  DateTime? @db.Time(6)
-}
-
-model User {
-  id   BigInt  @id @default(autoincrement())
-  Name String?
+  Date      String?
+  EnterTime String?
+  ExitTime  String?
 }
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
-model attend {
-  id        BigInt  @id @default(autoincrement())
+model TimeManagement {
+  id        String  @id
   Name      String?
   Date      String?
   EnterTime String?

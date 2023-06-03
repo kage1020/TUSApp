@@ -1,20 +1,22 @@
 // import Mem_status from './mem_status'
-import Sidemenu from '../side_menu/menu'
+import Header from '@/components/header'
+import Sidemenu from '@/components/sidemenu'
 
-import Table from './table'
+import MemberStatus from './memberstatus'
 
-import './status.css'
+import './new.css'
+import '@/components/layout.css'
 
 const Page_status = () => {
   return (
     <div>
-      <h1 className='title'>谷口研究室ーb4在室状況確認画面</h1>
-      <div className='side_content'>
+      <Header />
+      <div className='content'>
         <div className='sidemenu'>
           <Sidemenu />
         </div>
         <div className='maincontent'>
-          <Table />
+          <MemberStatus />
         </div>
       </div>
     </div>

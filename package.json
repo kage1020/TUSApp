@@ -23,7 +23,7 @@
     "@mui/material": "^5.13.3",
     "@mui/x-data-grid": "^6.5.0",
     "@mui/x-date-pickers": "^6.5.0",
-    "@prisma/client": "^4.14.1",
+    "@prisma/client": "^4.15.0",
     "axios": "^1.4.0",
     "clsx": "^1.2.1",
     "csv": "^6.3.1",

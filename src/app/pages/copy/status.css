@@ -76,6 +76,7 @@
   justify-content: center;
   align-items: center;
   background-color: transparent;
+  z-index: 100;
 }
 
 .information {
@@ -86,6 +87,14 @@
 }
 
 .number {
+  /* overflow: scroll; */
+  /* position: relative; */
+  /* overflow: hidden;
+  height: 1px;
+  text-overflow: ellipsis; */
+
+  maxheight: 10px;
+
   margin: 5px;
 }
 
