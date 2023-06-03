@@ -18,9 +18,11 @@ model attend {
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
 model TimeManagement {
-  id        String  @id
+  id        String
   Name      String?
-  Date      String?
+  Date      String
   EnterTime String?
   ExitTime  String?
+
+  @@id([id, Date], name: "TimeManagement_pkey")
 }

@@ -70,6 +70,8 @@ const ta_people: Person[] = [
   { id: '4620098', Name: '目黒 圭峻', Date: '', EnterTime: '', ExitTime: '' },
 ]
 
+const non: Person[] = [{ id: '', Name: '', Date: '', EnterTime: '', ExitTime: '' }]
+
 const MemberState = () => {
   const [id, setId] = useState('')
   const [name, setName] = useState('')
@@ -80,6 +82,12 @@ const MemberState = () => {
   const [date, setDate] = useState('')
   const [value, setValue] = React.useState<Dayjs | null>(dayjs('2023-06-01'))
 
+  const [month, setMonth] = useState<{ [dateby: string]: Person[] }>({})
+  // const { data: month } = useSWR<{ [dateby: string]: Person[] }>(
+  //   '/api/time',
+  //   (url) => axios.get(url).then((res) => res.data),
+  //   { onError: (err) => setServerError(err.message) },
+  // )
   const [inputError, setInputError] = useState('')
   const [serverError, setServerError] = useState('')
   const { data: people, mutate } = useSWR<Person[]>(
@@ -92,6 +100,15 @@ const MemberState = () => {
     if (newDate != null) {
       setValue(newDate)
       setDate(newDate.format('YYYY-MM-DD'))
+      const data: Person[] = people
+        ? people
+            .filter((person) => person.Date === newDate.format('YYYY-MM-DD'))
+            .map((person) => person)
+        : []
+      setMonth((prevData) => ({
+        ...prevData,
+        [newDate.format('YYYY-MM-DD')]: data,
+      }))
     }
   }
   //id Name set
@@ -118,11 +135,6 @@ const MemberState = () => {
       setexitTime(currentTime)
       setStatus(newstate)
     }
-    // } else if (newstate != null && newstate == 'Vacant') {
-    //   setStatus(newstate)
-    // } else if (newstate != null && newstate == 'ComeBack') {
-    //   setStatus(newstate)
-    // }
   }
 
   const addstatus = async () => {
@@ -158,16 +170,36 @@ const MemberState = () => {
             },
           ]
           mutate(data, { optimisticData: data })
+          const datamonth: Person[] = people
+            .filter((person) => person.Date === date)
+            .map((person) => person)
+          setMonth((prevData) => {
+            const newData = {
+              ...prevData,
+              [date]: datamonth,
+            }
+            return newData
+          })
         } else setServerError('エラーが発生しました')
       }
       //Exitの場合はidが一致する箇所を変更
       else if (status == 'Exit') {
-        const res = await axios.put(`/api/time/${id}`)
+        const res = await axios.put(`/api/time/${id}/${date}`)
+        // const res = await axios.put(`/api/time/${id}`)
         if (res.status === 200 && people) {
           const data = people.map((person) =>
-            person.id === id ? { ...person, ExitTime: exitTime } : person,
+            person.id === id && person.Date === date ? { ...person, ExitTime: exitTime } : person,
           )
           mutate(data, { optimisticData: data })
+
+          const datamonth: Person[] = people
+            .filter((person) => person.Date === date)
+            .map((person) => person)
+
+          setMonth((prevData) => ({
+            ...prevData,
+            [date]: datamonth,
+          }))
         } else setServerError('エラーが発生しました')
       }
     }
@@ -224,7 +256,8 @@ const MemberState = () => {
 
       <div style={{ height: 600, width: '100%' }}>
         <DataGrid
-          rows={people || []}
+          // rows={people || []}
+          rows={month[date] || []}
           columns={columns}
           initialState={{
             pagination: {
