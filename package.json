@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "postinstall": "prisma generate",
     "prisma:format": "prisma format",
     "prisma:generate": "prisma generate",
     "prisma:push": "prisma db push",

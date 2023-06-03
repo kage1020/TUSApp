@@ -167,6 +167,7 @@ const MemberState = () => {
             },
           ]
           mutate(data, { optimisticData: data })
+          //日付が同じ人を抽出 (毎回サーバから送られてきたもので新しく作成)
           const datamonth: Person[] = people
             .filter((person) => person.Date === date)
             .map((person) => person)
