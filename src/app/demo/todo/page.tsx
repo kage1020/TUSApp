@@ -1,6 +1,6 @@
 import { Suspense } from 'react'
 
-import Skelton from '@/app/components/Skelton'
+import Skelton from '@/components/Skelton'
 
 import Todo from './todo'
 

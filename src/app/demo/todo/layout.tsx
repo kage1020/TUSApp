@@ -1,3 +1,5 @@
+import SessionLayout from '@/components/SessionLayout'
+
 import type { Props } from '@/types'
 
 export const metadata = {
@@ -5,7 +7,11 @@ export const metadata = {
 }
 
 const TodoLayout = ({ children }: Props) => {
-  return <div className='grid h-screen w-screen place-items-center bg-gray-200'>{children}</div>
+  return (
+    <SessionLayout secured>
+      <div className='grid h-screen w-screen place-items-center bg-gray-200'>{children}</div>
+    </SessionLayout>
+  )
 }
 
 export default TodoLayout
