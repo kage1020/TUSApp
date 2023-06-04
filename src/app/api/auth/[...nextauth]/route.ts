@@ -1,6 +1,5 @@
 import { PrismaAdapter } from '@next-auth/prisma-adapter'
 import NextAuth from 'next-auth/next'
-import BoxProvider from 'next-auth/providers/box'
 import GithubProvider from 'next-auth/providers/github'
 import GoogleProvider from 'next-auth/providers/google'
 
@@ -15,15 +14,6 @@ export const authOptions: NextAuthOptions = {
   },
   adapter: PrismaAdapter(prisma),
   providers: [
-    BoxProvider({
-      clientId: process.env.BOX_CLIENT_ID ?? '',
-      clientSecret: process.env.BOX_CLIENT_SECRET ?? '',
-      authorization: {
-        params: {
-          scope: 'admin_readwrite',
-        },
-      },
-    }),
     GithubProvider({
       clientId: process.env.GITHUB_CLIENT_ID ?? '',
       clientSecret: process.env.GITHUB_CLIENT_SECRET ?? '',
