@@ -26,7 +26,7 @@ import axios from 'axios'
 import { signOut } from 'next-auth/react'
 import useSWR from 'swr'
 
-import Skelton from '@/components/Skelton'
+import Skelton from '@/components/Skeleton'
 
 import type { AxiosError } from 'axios'
 

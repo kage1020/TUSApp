@@ -1,6 +1,6 @@
 'use client'
 
-import { Skeleton } from '@mui/material'
+import CircularProgress from '@mui/material/CircularProgress'
 import { useSession } from 'next-auth/react'
 
 import type { Props } from '@/types'
@@ -15,7 +15,11 @@ const SessionLayout = ({ secured = false, children }: SessionLayoutProps) => {
   return (
     <>
       {!secured && children}
-      {secured && !session && <Skeleton />}
+      {secured && !session && (
+        <div className='grid h-screen w-screen place-items-center bg-gray-200'>
+          <CircularProgress />
+        </div>
+      )}
       {secured && session && children}
     </>
   )
