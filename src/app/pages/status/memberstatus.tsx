@@ -146,6 +146,7 @@ const MemberState = () => {
       setInputError('statusを選択してください。')
       alert(inputError)
     } else {
+      //2度の入室を防ぎたい
       if (status == 'Enter') {
         const res = await axios.post('/api/time', {
           id: id,
@@ -167,24 +168,16 @@ const MemberState = () => {
             },
           ]
           mutate(data, { optimisticData: data })
-          //日付が同じ人を抽出 (毎回サーバから送られてきたもので新しく作成)
-          const datamonth: Person[] = people
-            .filter((person) => person.Date === date)
-            .map((person) => person)
-          setMonth((prevData) => {
-            const newData = {
-              ...prevData,
-              [date]: datamonth,
-            }
-            return newData
-          })
         } else setServerError('エラーが発生しました')
       }
       //Exitの場合はidが一致する箇所を変更
       else if (status == 'Exit') {
         const res = await axios.put(`/api/time/${id}/${date}`)
+        console.log(res)
         // const res = await axios.put(`/api/time/${id}`)
-        if (res.status === 200 && people) {
+        if (res.data === null) {
+          alert('入室してください。')
+        } else if (res.status === 200 && people) {
           const data = people.map((person) =>
             person.id === id && person.Date === date ? { ...person, ExitTime: exitTime } : person,
           )
@@ -198,7 +191,9 @@ const MemberState = () => {
             ...prevData,
             [date]: datamonth,
           }))
-        } else setServerError('エラーが発生しました')
+        } else {
+          setServerError('エラーが発生しました')
+        }
       }
     }
   }

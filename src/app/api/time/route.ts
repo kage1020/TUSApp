@@ -11,14 +11,24 @@ export const GET = async () => {
 export const POST = async (req: Request) => {
   //表に送る、Personでjson,resで表に書くものを抽出
   const Person = await req.json()
-  const res = await prisma.timeManagement.create({
-    data: {
-      id: Person.id,
-      Name: Person.Name,
-      Date: Person.Date,
-      EnterTime: Person.EnterTime,
-      ExitTime: Person.ExitTime,
-    },
-  })
-  return NextResponse.json(res)
+  try {
+    const res = await prisma.timeManagement.create({
+      data: {
+        id: Person.id,
+        Name: Person.Name,
+        Date: Person.Date,
+        EnterTime: Person.EnterTime,
+        ExitTime: Person.ExitTime,
+      },
+    })
+    console.log(NextResponse.json(res))
+    return NextResponse.json(res)
+  } catch (e: any) {
+    // return alert('すでに登録されています')
+    // return 100
+    // return 10
+    // console.log(e.code)//P2002
+    // console.log(NextResponse.error)
+    return NextResponse.error
+  }
 }
