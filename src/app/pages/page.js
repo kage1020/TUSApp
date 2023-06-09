@@ -15,9 +15,9 @@ const App = () => {
           <li>
             <Link href='/pages/status'>Member_status</Link>
           </li>
-          <li>
+          {/* <li>
             <Link href='/pages/WebGL/index.html'>unity</Link>
-          </li>
+          </li> */}
         </ul>
       </div>
     </div>
