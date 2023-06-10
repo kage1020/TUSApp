@@ -1,8 +1,8 @@
 'use client'
 
-import CircularProgress from '@mui/material/CircularProgress'
-import Container from '@mui/material/Container'
 import { Unity, useUnityContext } from 'react-unity-webgl'
+
+import Spinner from '@/components/Spinner'
 
 const UnityApp = () => {
   const { unityProvider, isLoaded } = useUnityContext({
@@ -16,20 +16,7 @@ const UnityApp = () => {
   })
   return (
     <>
-      {!isLoaded && (
-        <Container
-          sx={{
-            width: '100lvw',
-            height: '100lvh',
-            display: 'grid',
-            placeItems: 'center',
-            position: 'absolute',
-            inset: 0,
-          }}
-        >
-          <CircularProgress size={60} />
-        </Container>
-      )}
+      {!isLoaded && <Spinner />}
       <Unity unityProvider={unityProvider} className='h-screen w-screen' />
     </>
   )

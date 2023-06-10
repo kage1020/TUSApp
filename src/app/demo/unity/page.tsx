@@ -1,6 +1,6 @@
 import { Suspense } from 'react'
 
-import Skelton from '@/components/Skeleton'
+import Spinner from '@/components/Spinner'
 
 import UnityApp from './unity'
 
@@ -11,7 +11,7 @@ export const metadata = {
 const UnityPage = async () => {
   return (
     <div>
-      <Suspense fallback={<Skelton />}>
+      <Suspense fallback={<Spinner />}>
         <UnityApp />
       </Suspense>
     </div>
