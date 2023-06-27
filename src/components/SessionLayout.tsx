@@ -1,6 +1,6 @@
 'use client'
 
-import CircularProgress from '@mui/material/CircularProgress'
+import { CircularProgress } from '@mui/material'
 import { useSession } from 'next-auth/react'
 
 import type { Props } from '@/types'

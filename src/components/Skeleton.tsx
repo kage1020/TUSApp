@@ -1,7 +1,6 @@
 'use client'
 
-import Container from '@mui/material/Container'
-import MUISkelton from '@mui/material/Skeleton'
+import { Container, Skeleton as MUISkelton } from '@mui/material'
 
 const Skelton = () => {
   return (
