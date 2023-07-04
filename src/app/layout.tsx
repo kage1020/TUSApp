@@ -1,4 +1,5 @@
 import NextAuthProvider from '@/components/providers/NextAuthProvider'
+import SWRProvider from '@/components/providers/SWRProvider'
 
 import type { Props } from '@/types'
 
@@ -14,7 +15,9 @@ export default function RootLayout({ children }: Props) {
   return (
     <html lang='ja'>
       <body>
-        <NextAuthProvider>{children}</NextAuthProvider>
+        <NextAuthProvider>
+          <SWRProvider>{children}</SWRProvider>
+        </NextAuthProvider>
       </body>
     </html>
   )

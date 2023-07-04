@@ -1,48 +1,26 @@
 'use client'
 
-import { useEffect, useRef } from 'react'
+import { createContext, useState } from 'react'
 
-import { Box, Card, CardActions, CardContent } from '@mui/material'
-import mapboxgl from 'mapbox-gl'
+import MapContent from './map'
+import Sidebar from './sidebar'
 
-import './mapbox-gl.css'
+export const PositionContext = createContext({
+  position: { lat: 0, lng: 0 },
+  setPosition: (position: { lat: number; lng: number }) => {
+    return
+  },
+})
 
 const MapboxPage = () => {
-  const mapContainer = useRef<HTMLDivElement>(null)
-  const map = useRef<mapboxgl.Map | null>(null)
-
-  useEffect(() => {
-    if (map.current) return
-
-    map.current = new mapboxgl.Map({
-      container: mapContainer.current as HTMLElement,
-      style: 'mapbox://styles/kage1020/cljea0zsn001301r8equd1hhw',
-      center: [139.9, 35.8],
-      zoom: 11,
-      accessToken: process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN ?? '',
-    })
-
-    new mapboxgl.Marker().setLngLat([139.86324, 35.7719]).addTo(map.current)
-  }, [])
-
+  const [position, setPosition] = useState({ lat: 0, lng: 0 })
   return (
-    <Box
-      sx={{
-        width: '100%',
-        height: '100%',
-        minWidth: '360px',
-        minHeight: '360px',
-        maxWidth: '720px',
-        maxHeight: '720px',
-      }}
-    >
-      <Card sx={{ height: '100%', width: '100%' }} elevation={5}>
-        <CardContent sx={{ height: '100%', width: '100%' }}>
-          <Box component='div' ref={mapContainer} sx={{ height: '100%', width: '100%' }}></Box>
-        </CardContent>
-        <CardActions sx={{ display: 'none' }}></CardActions>
-      </Card>
-    </Box>
+    <div className='grid h-full max-h-[720px] min-h-[360px] w-full min-w-[360px] max-w-[1080px] grid-cols-3 gap-4'>
+      <PositionContext.Provider value={{ position, setPosition }}>
+        <MapContent col={2} />
+        <Sidebar />
+      </PositionContext.Provider>
+    </div>
   )
 }
 
