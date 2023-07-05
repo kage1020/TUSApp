@@ -1,6 +1,7 @@
 'use client'
 
 import { Unity, useUnityContext } from 'react-unity-webgl'
+import useSWR from 'swr'
 
 import Spinner from '@/components/Spinner'
 
@@ -14,6 +15,12 @@ const UnityApp = () => {
     productName: 'Unitychan Practice',
     productVersion: '0.1',
   })
+  const { data } = useSWR(
+    '/api/pose',
+    (url) => fetch(url, { cache: 'no-cache' }).then((res) => res.json()),
+    { refreshInterval: 33 },
+  )
+
   return (
     <>
       {!isLoaded && <Spinner />}
