@@ -1,12 +1,14 @@
 'use client'
 
+import { useEffect } from 'react'
+
 import { Unity, useUnityContext } from 'react-unity-webgl'
 import useSWR from 'swr'
 
 import Spinner from '@/components/Spinner'
 
 const UnityApp = () => {
-  const { unityProvider, isLoaded } = useUnityContext({
+  const { unityProvider, isLoaded, sendMessage } = useUnityContext({
     loaderUrl: '/unity/Build/Build.loader.js',
     dataUrl: '/unity/Build/Build.data',
     frameworkUrl: '/unity/Build/Build.framework.js',
@@ -17,10 +19,14 @@ const UnityApp = () => {
   })
   const { data } = useSWR(
     '/api/pose',
-    (url) => fetch(url, { cache: 'no-cache' }).then((res) => res.json()),
+    (url) => fetch(url, { cache: 'no-cache' }).then(async (res) => await res.json()),
     { refreshInterval: 33 },
   )
   console.log({ data })
+
+  useEffect(() => {
+    if (isLoaded) sendMessage('SpawnEnemies', JSON.stringify(data))
+  }, [data, isLoaded, sendMessage])
 
   return (
     <>
