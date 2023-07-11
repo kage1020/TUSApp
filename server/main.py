@@ -1,9 +1,11 @@
 # Python 3.8.10
 from ultralytics import YOLO
 from http.server import BaseHTTPRequestHandler, HTTPServer
+import cv2
 
 def main():
-    model = YOLO('server/yolov8x-pose-p6.pt')
+    model = YOLO('yolov8x-pose-p6.pt')
+    video = cv2.VideoCapture(0)
 
     class RequestHandler(BaseHTTPRequestHandler):
         def do_GET(self):
@@ -12,7 +14,10 @@ def main():
             self.send_header('Content-type','text/html')
             self.end_headers()
 
-            results = model('server/0001.png', device='cuda:0')
+            ret, frame = video.read()
+            results = model(frame, device='cpu')
+            frame = results[0].plot()
+            cv2.imwrite('frame.jpg', frame)
             self.wfile.write(bytes(str(results[0].keypoints.data), 'utf8'))
             return
 

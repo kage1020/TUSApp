@@ -20,6 +20,7 @@ const UnityApp = () => {
     (url) => fetch(url, { cache: 'no-cache' }).then((res) => res.json()),
     { refreshInterval: 33 },
   )
+  console.log({ data })
 
   return (
     <>
