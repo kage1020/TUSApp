@@ -2,10 +2,12 @@
 from ultralytics import YOLO
 from http.server import BaseHTTPRequestHandler, HTTPServer
 import cv2
+import torch
 
 def main():
     model = YOLO('yolov8x-pose-p6.pt')
     video = cv2.VideoCapture(0)
+    device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
 
     class RequestHandler(BaseHTTPRequestHandler):
         def do_GET(self):
@@ -15,7 +17,7 @@ def main():
             self.end_headers()
 
             ret, frame = video.read()
-            results = model(frame, device='cpu')
+            results = model(frame, device=device)
             frame = results[0].plot()
             cv2.imwrite('frame.jpg', frame)
             self.wfile.write(bytes(str(results[0].keypoints.data), 'utf8'))
