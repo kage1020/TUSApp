@@ -22,10 +22,9 @@ const UnityApp = () => {
     (url) => fetch(url, { cache: 'no-cache' }).then(async (res) => await res.json()),
     { refreshInterval: 33 },
   )
-  console.log({ data })
 
   useEffect(() => {
-    if (isLoaded) sendMessage('SpawnEnemies', JSON.stringify(data))
+    if (isLoaded) sendMessage('unitychan', 'SpawnEnemies', JSON.stringify(data))
   }, [data, isLoaded, sendMessage])
 
   return (
