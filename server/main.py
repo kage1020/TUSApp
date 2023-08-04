@@ -9,7 +9,12 @@ import base64
 app = Flask(__name__)
 
 model = YOLO('yolov8n-pose.pt')
-video = cv2.VideoCapture(0)
+video = cv2.VideoCapture(0 + cv2.CAP_DSHOW)
+width = 2560
+height = 1440
+video.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))
+video.set(cv2.CAP_PROP_FRAME_WIDTH, width)
+video.set(cv2.CAP_PROP_FRAME_HEIGHT, height)
 device = torch.device('cuda') if torch.cuda.is_available() else torch.device('cpu')
 
 @app.get('/')
@@ -43,8 +48,10 @@ def predict():
     image = result[0].plot()
     cv2.imwrite('frame.jpg', image)
     return base64.b64encode(cv2.imencode('.jpg', image)[1]).decode('utf-8')
-    # return send_file('frame.jpg', mimetype='image/jpg')
 
+
+if __name__ == '__main__':
+    app.run()
 
 
 
