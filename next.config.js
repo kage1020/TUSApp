@@ -4,11 +4,11 @@ const nextConfig = {
     return [
       {
         source: '/api/pose',
-        destination: 'http://localhost:5000/',
+        destination: 'http://127.0.0.1:8080',
       },
       {
         source: '/api/pose/predict',
-        destination: 'http://localhost:5000/predict',
+        destination: 'http://127.0.0.1:8080/predict',
       },
     ]
   },
