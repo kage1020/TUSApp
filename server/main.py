@@ -56,7 +56,7 @@ def predict3d(image = None, save = False):
 @app.get('/')
 def get_index():
     pose = predict3d(save=True)
-    return {'pose': pose.tolist(), 'width': width, 'height': height }
+    return {'pose': pose.ravel().tolist(), 'width': width, 'height': height }
 
 @app.get('/image')
 def get_image():
