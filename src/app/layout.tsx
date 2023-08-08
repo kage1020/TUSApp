@@ -18,7 +18,7 @@ export default function RootLayout({ children }: Props) {
         <main className='flex h-screen w-screen flex-col items-center justify-center bg-gray-200'>
           <NextAuthProvider>
             <Header />
-            <div className='grid w-full flex-grow place-items-center px-4'>{children}</div>
+            <div className='grid w-full flex-grow place-items-center px-4 pb-4'>{children}</div>
           </NextAuthProvider>
         </main>
       </body>
