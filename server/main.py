@@ -17,7 +17,8 @@ import chainer
 
 app = Flask(__name__)
 
-video = cv2.VideoCapture(0 + cv2.CAP_DSHOW)
+# video = cv2.VideoCapture(0 + cv2.CAP_DSHOW)
+video = cv2.VideoCapture(0)
 width = 2560
 height = 1440
 video.set(cv2.CAP_PROP_FOURCC, cv2.VideoWriter_fourcc(*'MJPG'))
@@ -39,7 +40,7 @@ def predict2d(image = None, save = False):
     if save:
         image = results[0].plot()
         cv2.imwrite('frame.jpg', image)
-        cv2.imshow('frame', image)
+        # cv2.imshow('frame', image)
 
     return results[0].keypoints.xy
 
@@ -49,7 +50,8 @@ def predict3d(image = None, save = False):
     pose2d = pose2d.reshape(1, -1)
     pose2dn = Normalization.normalize_2d(pose2d)
     pose3d = create_pose(gan, pose2dn)
-    pose3d = np.array([ [pose2d[0][i*2], pose2d[0][i*2+1], pose3d[0][i*3+2]] for i in range(17) ]).reshape(1, -1)
+    # pose3d = np.array([ [pose2d[0][i*2], pose2d[0][i*2+1], pose3d[0][i*3+2]] for i in range(17) ]).reshape(1, -1)
+    pose3d = np.array([ [pose2d[0][i*2], pose2d[0][i*2+1], pose3d[0][i*3+2]] for i in range(17) ]).ravel()
     return pose3d
 
 
