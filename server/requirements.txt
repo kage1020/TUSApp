@@ -1,0 +1,6 @@
+flask
+ultralytics
+numpy
+torch
+opencv-python
+chainer
