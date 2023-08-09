@@ -36,8 +36,9 @@ export default function PoseEstimationPage() {
         3D Pose Estimation
       </Typography>
       <Sheet sx={{ height: '100%' }}>
-        {!isLoaded && <Spinner />}
-        <Unity unityProvider={unityProvider} />
+        <Typography>この機能は現在準備中です。</Typography>
+        {/* {!isLoaded && <Spinner />}
+        <Unity unityProvider={unityProvider} /> */}
       </Sheet>
     </Card>
   )
