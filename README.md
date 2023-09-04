@@ -106,7 +106,7 @@ When you use Todo List, you need to set up Supabase with creating Account.
 
 ## License
 
-Distributed under the MIT License. See `LICENSE` for more information.
+See `LICENSE` for more information.
 
 ## References
 

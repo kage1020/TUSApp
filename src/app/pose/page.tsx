@@ -12,10 +12,10 @@ import Spinner from '@/components/Spinner'
 
 export default function PoseEstimationPage() {
   const { unityProvider, isLoaded, sendMessage } = useUnityContext({
-    loaderUrl: '/Build/Build.loader.js',
-    dataUrl: '/Build/Build.data',
-    frameworkUrl: '/Build/Build.framework.js',
-    codeUrl: '/Build/Build.wasm',
+    loaderUrl: '/Build/oc-tus.loader.js',
+    dataUrl: '/Build/oc-tus.data',
+    frameworkUrl: '/Build/oc-tus.framework.js',
+    codeUrl: '/Build/oc-tus.wasm',
     companyName: 'TUS',
     productName: 'TUSPose',
     productVersion: '1.0',
@@ -23,11 +23,11 @@ export default function PoseEstimationPage() {
   const { data } = useSWR(
     '/api/pose',
     (url) => fetch(url, { cache: 'no-cache' }).then(async (res) => await res.json()),
-    { refreshInterval: 1000, dedupingInterval: 10 },
+    { refreshInterval: 33, dedupingInterval: 10 },
   )
 
   useEffect(() => {
-    if (isLoaded) sendMessage('unitychan', 'SetPose', JSON.stringify(data))
+    if (isLoaded) sendMessage('OffSet', 'SetPose', JSON.stringify(data))
   }, [data, isLoaded, sendMessage])
 
   return (
