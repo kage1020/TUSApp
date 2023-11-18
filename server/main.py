@@ -44,6 +44,8 @@ def predict2d(image = None, save = False):
 
 def predict3d(image = None, save = False):
     pose2d = predict2d(image, save)
+    if pose2d.numel() == 0:
+        return np.array([])
     pose2da = np.array(to36M(pose2d[0].cpu()))
     pose2da = pose2da.reshape(1, -1)
     pose2dn = Normalization.normalize_2d(pose2da)
