@@ -33,7 +33,7 @@ def predict2d(image = None, save = False):
         ret, frame = video.read()
         if not ret:
             return 'Error: Could not read frame'
-        image = frame
+        image = cv2.flip(frame, 1)
 
     results = yolo(image, device=device, max_det=1, classes=0, save=False)
     if save:

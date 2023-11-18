@@ -12,7 +12,7 @@
     <img alt="" src="https://img.shields.io/badge/framework-next.js-red.svg?style=for-the-badge&labelColor=000000">
   </a>
   <a aria-label="License" href="https://github.com/kage1020/TUSApp/blob/main/LICENSE">
-    <img alt="" src="https://img.shields.io/badge/license-mit-green.svg?style=for-the-badge&labelColor=000000">
+    <img alt="" src="https://img.shields.io/badge/license-gpl_3.0-green.svg?style=for-the-badge&labelColor=000000">
   </a>
 </p>
 
@@ -106,7 +106,7 @@ When you use Todo List, you need to set up Supabase with creating Account.
 
 ## License
 
-Distributed under the MIT License. See `LICENSE` for more information.
+See `LICENSE` for more information.
 
 ## References
 
